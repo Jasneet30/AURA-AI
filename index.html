@@ -1,299 +1,92 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>SkinScan AI</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="container">
-
-    <h1>AURA AI</h1>
-    <p>AI-powered skincare analysis</p>
-
-    <div id="camera">
-        <video id="video" autoplay playsinline></video>
-    </div>
-
-    <button id="startCamera">Open Camera</button>
-    <button id="capture">Take Photo</button>
-
-    <canvas id="canvas"></canvas>
-
-    <div id="result"></div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
-<script src="script.js"></script>
-
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AURA AI — AI Skincare Analysis</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff4f0">
+  <title>AURA AI — AI Skincare Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-
-<!-- ================= HEADER ================= -->
-
-<header class="site-header">
-
-    <div class="logo">
-        <span class="logo-flower">✿</span>
-        AURA AI
-    </div>
-
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#how">How it Works</a>
-        <a href="#recommendations">Skincare Tips</a>
-        <a href="#about">About</a>
+  <header class="site-header">
+    <a class="logo" href="#home"><span class="logo-flower">✿</span> AURA AI</a>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a><a href="#how">How it Works</a><a href="#result">Skincare Tips</a><a href="#about">About</a>
     </nav>
+    <div class="header-pill">✧ Your Beauty, Smarter</div>
+  </header>
 
-    <div class="header-pill">
-        ✧ Your Beauty, Smarter
-    </div>
-
-</header>
-
-
-<!-- ================= HERO ================= -->
-
-<section class="hero" id="home">
-
-    <div class="hero-copy">
-
-        <div class="sparkle">✦</div>
-
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="sparkle" aria-hidden="true">✦</div>
         <h1>AURA AI</h1>
-
-        <h2>
-            AI-powered skincare analysis
-        </h2>
-
-        <p>
-            Upload a beautiful selfie and get personalized
-            beauty product recommendations based on
-            your skin's unique needs.
-        </p>
-
+        <h2>AI-powered skincare analysis</h2>
+        <p>Take a clear selfie to explore personalized cosmetic product recommendations for your skin.</p>
         <div class="hero-features">
-
-            <div>
-                <span>◉</span>
-                <small>AI Skin<br>Analysis</small>
-            </div>
-
-            <div>
-                <span>♡</span>
-                <small>Personalized<br>Recommendations</small>
-            </div>
-
-            <div>
-                <span>♧</span>
-                <small>Top Beauty<br>Products</small>
-            </div>
-
-            <div>
-                <span>✦</span>
-                <small>Healthier,<br>Happier Skin</small>
-            </div>
-
+          <div><span>◉</span><small>AI Skin<br>Analysis</small></div>
+          <div><span>♡</span><small>Personalized<br>Recommendations</small></div>
+          <div><span>♧</span><small>Beauty<br>Products</small></div>
+          <div><span>✦</span><small>Skin-care<br>Basics</small></div>
         </div>
+      </div>
+      <div class="hero-model" aria-hidden="true">
+        <div class="model-placeholder"><div class="model-glow"></div><div class="model-face">✨</div><div class="floating-note">Scan<br>Analyse<br>Recommend<br>Glow ✦</div></div>
+      </div>
+    </section>
 
-    </div>
-
-
-    <div class="hero-model">
-
-        <!-- Dummy beauty image -->
-        <div class="model-placeholder">
-
-            <div class="model-glow"></div>
-
-            <div class="model-face">
-                ✨
-            </div>
-
-            <div class="floating-note">
-                Scan<br>
-                Analyse<br>
-                Recommend<br>
-                Glow ✦
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= SCANNER ================= -->
-
-<section class="scanner-section" id="how">
-
-    <div class="scan-step">
-
-        <div class="step-number">1</div>
-
-        <h3>Open Camera</h3>
-
-        <p>
-            Click the button to open your camera
-            and get ready for a selfie.
-        </p>
-
-        <div class="scan-illustration">
-            📱
-        </div>
-
-        <button id="startCamera" class="primary-btn">
-            📷 Open Camera
-        </button>
-
-    </div>
-
-
-    <div class="step-arrow">
-        →
-    </div>
-
-
-    <div class="scan-step">
-
-        <div class="step-number">2</div>
-
-        <h3>Take Photo</h3>
-
-        <p>
-            Position your face inside the frame
-            and take a clear photo.
-        </p>
-
+    <section class="scanner-section" id="how" aria-label="Skin scan steps">
+      <div class="scan-step">
+        <div class="step-number">1</div><h3>Open Camera</h3>
+        <p>Allow camera access, then position your face in good, even lighting.</p>
+        <div class="scan-illustration" aria-hidden="true">📱</div>
+        <button id="startCamera" class="primary-btn" type="button">📷 Open Camera</button>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="scan-step scan-step-camera">
+        <div class="step-number">2</div><h3>Take Photo</h3>
+        <p id="cameraInstruction">Keep your whole face inside the frame. The photo will be checked before analysis.</p>
         <div class="camera-wrapper">
-
-            <video
-                id="video"
-                autoplay
-                playsinline
-                style="display:none;">
-            </video>
-
-            <canvas
-                id="canvas"
-                style="display:none;">
-            </canvas>
-
+          <div class="camera-frame" id="cameraFrame">
+            <video id="video" autoplay muted playsinline hidden aria-label="Camera preview"></video>
+            <div class="camera-guide" id="cameraGuide" hidden aria-hidden="true"><div class="face-outline"></div></div>
+            <canvas id="canvas" hidden aria-label="Captured photo preview"></canvas>
+          </div>
         </div>
-
-        <button
-            id="capture"
-            class="primary-btn"
-            style="display:none;">
-            📸 Take Photo
-        </button>
-
-    </div>
-
-
-    <div class="step-arrow">
-        →
-    </div>
-
-
-    <div class="scan-step">
-
-        <div class="step-number">3</div>
-
-        <h3>Get Results</h3>
-
-        <p>
-            AI analyzes your skin and recommends
-            beauty products for you.
-        </p>
-
-        <div class="analysis-preview">
-
-            <span class="tag acne">Acne</span>
-            <span class="tag redness">Redness</span>
-            <span class="tag pigmentation">Pigmentation</span>
-            <span class="tag clear">Clear Skin</span>
-
-            <div class="face-scan">
-                ✨
-            </div>
-
+        <div class="camera-controls">
+          <button id="switchCamera" class="secondary-btn" type="button" hidden>🔄 Switch Camera</button>
+          <button id="capture" class="primary-btn" type="button" hidden disabled>📸 Take Photo</button>
+          <button id="retakePhoto" class="secondary-btn" type="button" hidden>↻ Retake Photo</button>
         </div>
+        <p class="privacy-note">Your photo is analyzed in this browser. Feedback saves the result label, not the photo.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="scan-step">
+        <div class="step-number">3</div><h3>Get Results</h3>
+        <p>The model estimates one of three categories and displays matching product suggestions.</p>
+        <div class="analysis-preview"><span class="tag acne">Acne</span><span class="tag pigmentation">Pigmentation</span><span class="tag clear">Clear Skin</span><div class="face-scan">✨</div></div>
+      </div>
+    </section>
 
-    </div>
+    <section id="result" class="result-section" aria-live="polite" aria-busy="false"></section>
 
-</section>
+    <section id="about" class="about-section">
+      <h2>Beauty insights, with care</h2>
+      <p>AURA AI is a student prototype for cosmetic exploration. Its visual predictions may be incorrect and are not a medical diagnosis. Product suggestions are not medical treatment.</p>
+    </section>
+  </main>
 
+  <footer id="recommendations"><div class="footer-logo">AURA AI</div><p>AI-powered beauty insights for smarter skincare.</p><small>Cosmetic/wellness guidance only. Not a medical diagnosis.</small></footer>
 
-<!-- ================= AI RESULT ================= -->
-
-<section id="result" class="result-section">
-
-    <!-- JavaScript fills this area -->
-
-</section>
-
-
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    <div class="footer-logo">
-        AURA AI
-    </div>
-
-    <p>
-        AI-powered beauty insights for smarter skincare.
-    </p>
-
-    <small>
-        Cosmetic/wellness guidance only. Not a medical diagnosis.
-    </small>
-
-</footer>
-
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
-
-
-<!-- TensorFlow -->
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-
-<!-- Teachable Machine -->
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
-<script src="script.js"></script>
-
+  <!-- Load TensorFlow only once. BlazeFace is used only to validate that a face is present. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore-compat.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
